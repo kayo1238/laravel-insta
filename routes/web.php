@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 //kayo 
 // update
 // again update
+// risa
 Auth::routes();
 
 // route group for users
