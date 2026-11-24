@@ -65,8 +65,18 @@
             </div>
 
            @isset($receiver)
-               
+               <div class="modal-footer">
+                <form action="{{ route('message.store', $receive->id) }}" method="POST" class="w-100 d-flex gap-2">
+                    @csrf
+                    <input type="text" name="body" class="form-control" placeholder="Message..." required>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+               </div>
            @endisset
         </div>
     </div>
 </div>
+
+@if ($isModalOpen)
+    <div class="modal-backdrop fade show"></div>
+@endif
