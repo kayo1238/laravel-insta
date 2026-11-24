@@ -9,6 +9,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,10 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){    // Auth=login user only
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('/people', [HomeController::class, 'search'])->name('search');
+
+    // message 
+    Route::get('/messages/{user_id}', [MessageController::class, 'show'])->name('messages.show');
+    Route::post('/messages/{user_id}', [MessageController::class, 'store'])->name('massages.store');
 
     # route for admin
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
