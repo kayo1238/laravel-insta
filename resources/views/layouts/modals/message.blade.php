@@ -35,7 +35,7 @@
                         </div>
                     @else
                         <div class="d-flex jutify-content-start mb-2">
-                            <div class="bg-light border rounded px-3 py-2" style="max-width: 75%;">
+                            <div class="bg-light border rounded px-2 py-2" style="max-width: 75%;">
                                 <div>{{ $msg->body }}</div>
                                 <small class="text-muted" style="font-size: 0.7rem;">
                                     {{ $msg->created_at->format('H:i') }}
