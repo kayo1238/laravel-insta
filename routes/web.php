@@ -4,6 +4,7 @@
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\BookmarkController;
 # USERS
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
@@ -71,8 +72,15 @@ Route::group(['middleware' => 'auth'], function(){    // Auth=login user only
     Route::delete('like/{post_id}/destroy', [LikeController::class, 'destroy'])->name('like.destroy');
 
     # FOLLOW
-     Route::post('/follow/{user_id}/store', [FollowController::class, 'store'])->name('follow.store');
-     Route::delete('follow/{user_id}/destroy', [FollowController::class, 'destroy'])->name('follow.destroy');
+    Route::post('/follow/{user_id}/store', [FollowController::class, 'store'])->name('follow.store');
+    Route::delete('follow/{user_id}/destroy', [FollowController::class, 'destroy'])->name('follow.destroy');
+
+    # Bookmark
+    Route::middleware('auth')->group(function(){
+        Route::post('/posts/{post}/bookmark',[BookmarkController::class, 'store'])->name('bookmarks.store');    //bookmarkを追加
+        Route::delete('/posts/{post}/bookmark',[BookmarkController::class, 'destroy'])->name('bookmarks.destroy');  //bookmarkを解除
+        Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.index');    //保存した投稿の一覧ページを開く
+    }); 
 });
 
 

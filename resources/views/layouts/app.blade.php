@@ -117,8 +117,15 @@
                                 {{-- Profile --}}
                                 <a href="{{ route('profile.show', Auth::user()->id) }}" class="dropdown-item">
                                     <i class="fa-solid fa-circle-user"></i> Profile
+                                </a> 
+                                
+                                
+                                {{-- Bookmark --}}
+                                <a href="{{ route('bookmarks.index') }}" class="dropdown-item">
+                                    <i class="fa-regular fa-bookmark me-2"></i>Bookmark
                                 </a>
-
+        
+                      
                                 {{-- Logout --}}
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
