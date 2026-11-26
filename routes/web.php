@@ -13,6 +13,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 //kayo 
@@ -81,6 +82,10 @@ Route::group(['middleware' => 'auth'], function(){    // Auth=login user only
         Route::delete('/posts/{post}/bookmark',[BookmarkController::class, 'destroy'])->name('bookmarks.destroy');  //bookmarkを解除
         Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.index');    //保存した投稿の一覧ページを開く
     }); 
+
+    # Notification
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::delete('/notifications/destroy-all',[NotificationController::class, 'destroyAll'])->name('notifications.destroyAll');
 });
 
 
