@@ -93,6 +93,19 @@
                                 @endif
                                  </button>
                             </li>
+
+                            {{--Notification Icon--}}
+                            <li class="nav-item">
+                                <a href="{{ route('notifications.index') }}" class="nav-link position-relative">
+                                    <i class="fa-solid fa-bell text-dark icon-sm"></i>
+                                    @if (Auth::user()->unreadNotificationsCount() > 0)
+                                        <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="font-size: 0.8em; top: 12px; left:78%;">
+                                            {{ Auth::user()->unreadNotificationsCount() > 99 ? '99+' : Auth::user()->unreadNotificationsCount() }}
+                                        </span>   
+                                    @endif
+                                </a>
+                            </li>
+ 
                             {{-- Account --}} 
                             <li class="nav-item dropdown">
                             <button id="account-dropdown" class="btn shadow-none nav-link" data-bs-toggle="dropdown">

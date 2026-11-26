@@ -61,8 +61,10 @@
                         <i class="fa-regular fa-bookmark text-dark fs-5"></i>
                     </button>
                 </form>
-                
             @endif
+        </div>
+        <div class="col-auto ps-1">
+            <span>{{ $post->bookmarks->count() }}</span>
         </div>
     </div>
 

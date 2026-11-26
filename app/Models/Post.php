@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Symfony\Component\VarDumper\Cloner\DumperInterface;
 
 class Post extends Model
 {
@@ -40,5 +41,9 @@ class Post extends Model
 
     public function categories() {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function bookmarks() {
+        return $this->hasMany(Bookmark::class);
     }
 }
