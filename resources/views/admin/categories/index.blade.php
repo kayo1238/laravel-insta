@@ -9,13 +9,13 @@
 
         <div class="row gx-2 mb-4">
             <div class="col-4">
-                <input type="text" name="name" class="form-control" placeholder="Add a category..." value="{{ old('name') }}" autofocus>
+                <input type="text" name="name" class="form-control sns-input" placeholder="Add a category..." value="{{ old('name') }}" autofocus>
                 @error('name')
                     <div class="text-danger small">{{ $message }}</div>
                 @enderror
             </div>
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add</button>
+                <button type="submit" class="btn btn-mini"><i class="fa-solid fa-plus"></i> Add</button>
             </div>
         </div>
     </form>
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-9">
             <table class="table table-hover align-middle bg-white border text-secondary text-center">
-                <thead class="small table-warning text-secondary">
+                <thead class="small table-category text-secondary">
                     <tr>
                         <th>#</th>
                         <th>NAME</th>
@@ -43,7 +43,7 @@
                             <td>
                                 {{-- 編集・削除ボタン（Uncategorized以外に表示する場合など） --}}
                                 @if ($category->name != 'Uncategorized')
-                                    <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit-category-{{ $category->id }}" title="Edit">
+                                    <button class="btn btn-outline-orange btn-sm" data-bs-toggle="modal" data-bs-target="#edit-category-{{ $category->id }}" title="Edit">
                                         <i class="fa-solid fa-pen"></i>
                                     </button>
                                     <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-category-{{ $category->id }}" title="Delete">

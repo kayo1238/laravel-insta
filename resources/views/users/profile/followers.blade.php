@@ -8,7 +8,7 @@
     <div style="margin-top: 100px ">
         @if ($user->followers->isNotEmpty())
             <div class="row justify-content-center">
-                <div class="col-4">
+                <div class="col-4 mb-5">
                     <h3 class="text-muted text-center">Followers</h3>
 
                     @foreach ($user->followers as $follower)
@@ -19,7 +19,7 @@
                                         <img src="{{ $follower->follower->avatar }}" alt="{{ $follower->follower->name }}"
                                             class="rounded-circle avatar-sm">
                                     @else
-                                        <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
+                                        <i class="fa-solid fa-face-smile smile icon-sm"></i>
                                     @endif
                                 </a>
                             </div>
@@ -36,13 +36,13 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                class="border-0 bg-transparent p-0 text-secondary btn-sm">Following</button>
+                                                class="btn btn-following">Following</button>
                                         </form>
                                     @else
                                         <form action="{{ route('follow.store', $follower->follower->id) }}" method="post">
                                             @csrf
                                             <button type="submit"
-                                                class="border-0 bg-transparent p-0 text-primary btn-sm">Follow</button>
+                                                class="btn btn-mini">Follow</button>
                                         </form>
                                     @endif
                                 @endif

@@ -13,9 +13,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <!-- Scripts -->
@@ -27,7 +28,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <h1 class="h5 mb-0">{{ config('app.name') }}</h1>
+                    <h1 class="mb-0 honk-logo display-4">{{ config('app.name') }}</h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -38,13 +39,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     {{-- [SOON] Search bar here --}}
-                    @if (!request()->is('admin/*'))
-                        <ul class="navbar-nav ms-auto">
-                            <form action="{{ route('search') }}" style="width: 300px">
-                                <input type="search" name="search" class="form-control form-control-sm"
-                                    placeholder="Search...">
-                            </form>
-                        </ul>
+                    @if (!request()->is('login', 'register'))
+                    <ul class="navbar-nav ms-auto">
+                        <form action="{{ route('search') }}" style="width: 300px">
+                            <div class="d-flex align-items-center">
+                                <button type="submit" class="btn btn-sm btn-mini" title="Post">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                                <input type="search" name="search" class="form-control form-control-sm sns-input" placeholder="Search...">
+                            </div>
+                        </form>
+                    </ul>
                     @endif
 
                     <!-- Right Side Of Navbar -->
@@ -53,29 +58,29 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }} <i class="fa-solid fa-right-to-bracket"></i></a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }} <i class="fa-solid fa-user-plus"></i></a>
                                 </li>
                             @endif
                         @else
-                            {{-- Home  --}}
-                            <li class="nav-item" title="Home">
-                                <a href="{{ route('index') }}" class="nav-link">
-                                    <i class="fa-solid fa-house text-dark icon-sm"></i>
-                                </a>
-                            </li>
+                        {{-- Home  --}}
+                        <li class="nav-item" title="Home">
+                            <a href="{{ route('index') }}" class="nav-link">
+                                <i class="fa-solid fa-house icon-sm"></i>
+                            </a>
+                        </li>
 
-                            {{-- Create Post --}}
-                            <li class="nav-item" title="Create Post">
-                                <a href="{{ route('post.create') }}" class="nav-link">
-                                    <i class="fa-solid fa-circle-plus text-dark icon-sm"></i>
-                                </a>
-                            </li>
+                        {{-- Create Post --}}
+                        <li class="nav-item" title="Create Post">
+                            <a href="{{ route('post.create') }}" class="nav-link">
+                                <i class="fa-regular fa-square-plus icon-sm"></i>
+                            </a>
+                        </li>
 
                             @php
                                 $unreadCount = \Illuminate\Support\Facades\Auth::check()
@@ -90,7 +95,7 @@
                                 <button type="button" class="btn nav-link" data-bs-toggle="modal"
                                     data-bs-target="#chatModal">
                                     <span class="position-relative d-inline-block">
-                                        <i class="fa-brands fa-telegram  text-dark icon-sm"></i>
+                                        <i class="fa-regular fa-paper-plane icon-sm"></i>
 
                                         {{-- if unread --}}
                                         @if (!empty($unreadCount) && $unreadCount > 0)
@@ -107,7 +112,7 @@
                             {{--Notification Icon--}}
                             <li class="nav-item">
                                 <a href="{{ route('notifications.index') }}" class="nav-link position-relative">
-                                    <i class="fa-solid fa-bell text-dark icon-sm"></i>
+                                    <i class="fa-solid fa-bell icon-sm"></i>
                                     @if (Auth::user()->unreadNotificationsCount() > 0)
                                         <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="font-size: 0.8em; top: 12px; left:78%;">
                                             {{ Auth::user()->unreadNotificationsCount() > 99 ? '99+' : Auth::user()->unreadNotificationsCount() }}
@@ -118,13 +123,12 @@
  
                             {{-- Account --}} 
                             <li class="nav-item dropdown">
-                                <button id="account-dropdown" class="btn shadow-none nav-link" data-bs-toggle="dropdown">
-                                    @if (Auth::user()->avatar)
-                                        <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}"
-                                            class="rounded-circle avatar-sm">
-                                    @else
-                                        <i class="fa-solid fa-circle-user text-dark icon-sm"></i>
-                                    @endif
+                               <button id="account-dropdown" class="btn shadow-none nav-link" data-bs-toggle="dropdown">
+                               @if (Auth::user()->avatar)
+                                    <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" class="rounded-circle avatar-sm">
+                               @else
+                                    <i class="fa-regular fa-face-smile icon-sm"></i>
+                               @endif
                                 </button>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
@@ -187,7 +191,7 @@
                                 {{-- categories --}}
                                 <a href="{{ route('admin.categories') }}"
                                     class="list-group-item {{ request()->is('admin/categories') ? 'active' : '' }}">
-                                    <i class="fa-solid fa-tags"></i> Catevories
+                                    <i class="fa-solid fa-tags"></i> Categories
                                 </a>
                             </div>
                         </div>

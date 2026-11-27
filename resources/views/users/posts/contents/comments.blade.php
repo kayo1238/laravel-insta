@@ -6,9 +6,21 @@
             @foreach ($post->comments->take(3) as $comment)
             {{-- take() - limit the number of comments displayed --}}
                 <li class="list-group-item border-0 p-0 mb-2">
-                    <a href="{{ route('profile.show', $comment->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
-                    &nbsp;
-                    <p class="d-inline fw-light">{{ $comment->body }}</p>
+                    <div class="d-flex align-items-start gap-2">
+                        <a href="{{ route('profile.show', $comment->user->id) }}" class="d-inline-flex align-items-center justify-content-center text-decoration-none avatar-wrap flex-shrink-0">
+                            @if ($comment->user->avatar)
+                            <img src="{{ $comment->user->avatar }}" alt="{{ $comment->user->name }}" class="rounded-circle avatar-sm">
+                            @else
+                                <i class="fa-solid fa-face-smile smile icon-sm"></i>    
+                            @endif
+                        </a>
+                        <div class="d-flex flex-column">
+                            <a href="{{ route('profile.show', $comment->user->id) }}"
+                                class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}
+                            </a>
+                            <p class="d-inline fw-light">{{ $comment->body }}</p>
+                        </div>
+                    </div>
 
                     <form action="{{ route('comment.destroy', $comment->id)  }}" method="post">
                         @csrf
@@ -37,9 +49,9 @@
         @csrf
 
         <div class="input-group">
-            <textarea name="comment_body{{ $post->id }}" cols="30" rows="1" class="form-control form-control-sm"
+            <textarea name="comment_body{{ $post->id }}" cols="30" rows="1" class="form-control form-control-sm sns-input"
                 placeholder="Add a comment...">{{ old('comment_body' . $post->id) }}</textarea>
-            <button type="submit" class="btn btn-outline-secondary btn-sm" title="Post">
+            <button type="submit" class="btn btn-sm btn-mini" title="Post">
                 <i class="fa-regular fa-paper-plane"></i>
             </button>
         </div>

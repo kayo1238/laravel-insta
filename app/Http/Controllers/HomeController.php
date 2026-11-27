@@ -74,6 +74,7 @@ class HomeController extends Controller
 
         return $home_posts;
     }
+    
 
     public function search(Request $request) {
         $users = $this->user->where('name', 'like', '%' .$request->search.'%')->get();
