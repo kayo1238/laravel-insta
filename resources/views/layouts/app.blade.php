@@ -77,21 +77,31 @@
                                 </a>
                             </li>
 
-                            {{-- chat   {{ route('messages.index') }}--}}  
+                            @php
+                                $unreadCount = \Illuminate\Support\Facades\Auth::check()
+                                    ? \App\Models\Message::where('receiver_id', \Illuminate\Support\Facades\Auth::id())
+                                        ->whereNull('read_at')
+                                        ->count()
+                                    : 0;
+                            @endphp
+
+                            {{-- chat  --}}
                             <li class="nav-item position-relative" title="Messages">
-                                <button type="button" class="btn nav-link position-relative" data-bs-toggle="modal" data-bs-target="#chatModal">
-                                    <i class="fa-brands fa-telegram  text-dark icon-sm"></i>
-                                
-                                
-                                {{-- if unread --}}
-                                @if (!empty($unreadCount) && $unreadCount > 0)
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                        style="font-size: 0.65rem;">
-                                        {{ $unreadCount > 99 ? '99+' : $unreadCount }}
+                                <button type="button" class="btn nav-link" data-bs-toggle="modal"
+                                    data-bs-target="#chatModal">
+                                    <span class="position-relative d-inline-block">
+                                        <i class="fa-brands fa-telegram  text-dark icon-sm"></i>
+
+                                        {{-- if unread --}}
+                                        @if (!empty($unreadCount) && $unreadCount > 0)
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                style="font-size: 0.65rem;">
+                                                {{ $unreadCount > 99 ? '99+' : $unreadCount }}
+                                            </span>
+                                        @endif
                                     </span>
-                                @endif
-                                 </button>
+                                </button>
                             </li>
 
                             {{--Notification Icon--}}
@@ -108,48 +118,48 @@
  
                             {{-- Account --}} 
                             <li class="nav-item dropdown">
-                            <button id="account-dropdown" class="btn shadow-none nav-link" data-bs-toggle="dropdown">
-                                @if (Auth::user()->avatar)
-                                    <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}"
-                                        class="rounded-circle avatar-sm">
-                                @else
-                                    <i class="fa-solid fa-circle-user text-dark icon-sm"></i>
-                                @endif
-                            </button>
+                                <button id="account-dropdown" class="btn shadow-none nav-link" data-bs-toggle="dropdown">
+                                    @if (Auth::user()->avatar)
+                                        <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}"
+                                            class="rounded-circle avatar-sm">
+                                    @else
+                                        <i class="fa-solid fa-circle-user text-dark icon-sm"></i>
+                                    @endif
+                                </button>
 
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
-                                {{-- [SOON] Admin Controls --}}
-                                @can('admin')
-                                    <a href="{{ route('admin.users') }}" class="dropdown-item">
-                                        <i class="fa-solid fa-user-gear"></i> Admin
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
+                                    {{-- [SOON] Admin Controls --}}
+                                    @can('admin')
+                                        <a href="{{ route('admin.users') }}" class="dropdown-item">
+                                            <i class="fa-solid fa-user-gear"></i> Admin
+                                        </a>
+
+                                        <hr class="dropdown-divider">
+                                    @endcan
+
+                                    {{-- Profile --}}
+                                    <a href="{{ route('profile.show', Auth::user()->id) }}" class="dropdown-item">
+                                        <i class="fa-solid fa-circle-user"></i> Profile
                                     </a>
 
-                                    <hr class="dropdown-divider">
-                                @endcan
 
-                                {{-- Profile --}}
-                                <a href="{{ route('profile.show', Auth::user()->id) }}" class="dropdown-item">
-                                    <i class="fa-solid fa-circle-user"></i> Profile
-                                </a> 
-                                
-                                
-                                {{-- Bookmark --}}
-                                <a href="{{ route('bookmarks.index') }}" class="dropdown-item">
-                                    <i class="fa-regular fa-bookmark me-2"></i>Bookmark
-                                </a>
-        
-                      
-                                {{-- Logout --}}
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
+                                    {{-- Bookmark --}}
+                                    <a href="{{ route('bookmarks.index') }}" class="dropdown-item">
+                                        <i class="fa-regular fa-bookmark me-2"></i>Bookmark
+                                    </a>
+
+
+                                    {{-- Logout --}}
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
-                                </a>
+                                        <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                                    </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
                             </li>
                         @endguest
                     </ul>
