@@ -5,13 +5,18 @@
                 @if ($post->user->avatar)
                 <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="rounded-circle avatar-sm">
                 @else
-                    <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>    
+                    <i class="fa-solid fa-face-smile smile icon-sm"></i>    
                 @endif
             </a>
         </div>
         <div class="col ps-0">
             <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark">{{ $post->user->name }}</a>
+            <span class="text-muted small">・</span>
+            <span class="text-muted small">
+                {{ $post->created_at->diffForHumans() }}
+            </span>
         </div>
+        
         <div class="col-auto">
             <div class="dropdown">
                 <button class="btn btn-sm shadow-none" data-bs-toggle="dropdown">

@@ -4,7 +4,7 @@
 
 @section('content')
     <table class="table table-hover align-middle bg-white border text-secondary">
-        <thead class="small table-success text-secondary">
+        <thead class="small table-user text-secondary">
             <tr>
                 <th></th>
                 <th>NAME</th>
@@ -22,7 +22,7 @@
                             <img src="{{ $user->avatar }}" alt="{{ $user->name }}"
                                 class="rounded-circle d-block mx-auto avatar-md">
                         @else
-                            <i class="fa-solid fa-circle-user d-block text-center icon-md"></i>
+                            <i class="fa-solid fa-face-smile smile d-block text-center icon-md"></i>
                         @endif
                     </td>
                     <td>
@@ -36,7 +36,7 @@
                             {{-- tarashed() - returns TRUE is the user was soft deleted --}}
                             <i class="fa-regular fa-circle text-secondary"></i>&nbsp; Inactive
                         @else
-                            <i class="fa-solid fa-circle text-success"></i>&nbsp; Active
+                            <i class="fa-solid fa-circle active"></i>&nbsp; Active
                         @endif
                     </td>
                     <td>

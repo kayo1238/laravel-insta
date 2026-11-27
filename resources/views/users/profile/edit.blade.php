@@ -17,7 +17,7 @@
                             <img src="{{$user->avatar }}" alt="{{ $user->name }}"
                                 class="img-thumbnail rounded-circle d-block mx-auto">
                         @else
-                            <i class="fa-solid fa-circle-user text-secondary d-block text-center icon-lg"></i>
+                            <i class="fa-solid fa-face-smile smile d-block text-center icon-lg"></i>
                         @endif
                     </div>
                     <div class="col-auto align-self-end">
@@ -36,7 +36,7 @@
 
                 <div class="mb-3">
                     <label for="name" class="form-label fw-bold">Name</label>
-                    <input type="text" name="name" id="name" class="form-control"
+                    <input type="text" name="name" id="name" class="form-control sns-input"
                         value="{{ old('name', $user->name) }}">
                     {{-- Error --}}
                     @error('name')
@@ -45,7 +45,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label fw-bold">E-Mail Address</label>
-                    <input type="email" name="email" id="email" class="form-control"
+                    <input type="email" name="email" id="email" class="form-control sns-input"
                         value="{{ old('email', $user->email) }}">
                     {{-- Error --}}
                     @error('email')
@@ -54,13 +54,13 @@
                 </div>
                 <div class="mb-3">
                     <label for="introduction" class="form-label fw-bold">Introduction</label>
-                    <textarea name="introduction" id="introduction" rows="5" class="form-control" placeholder="Describe yourself">{{ old('introduction', $user->introduction) }}</textarea>
+                    <textarea name="introduction" id="introduction" rows="5" class="form-control sns-input" placeholder="Describe yourself">{{ old('introduction', $user->introduction) }}</textarea>
                     {{-- Error --}}
                     @error('introduction')
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-warning px-5">Save</button>
+                <button type="submit" class="btn btn-mini px-5">Save</button>
             </form>
         </div>
     </div>

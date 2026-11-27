@@ -3,6 +3,7 @@
 @section('title', 'Edit Post')
 
 @section('content')
+<div class="row align-items-center mb-5 bg-white shadow-sm rounded-3 p-3">
     <form action="{{ route('post.update', $post->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
@@ -15,7 +16,7 @@
             @foreach ($all_categories as $category)
                 <div class="form-check form-check-inline">
                     @if (in_array($category->id, $selected_categories))
-                        <input type="checkbox" name="category[]" id="{{ $category->name }}" class="form-check-input"
+                        <input type="checkbox" name="category[]" id="{{ $category->name }}" class="form-check-input check"
                             value="{{ $category->id }}" checked> 
                     @else
                         <input type="checkbox" name="category[]" id="{{ $category->name }}" class="form-check-input"
@@ -32,7 +33,7 @@
 
         <div class="mb-3">
             <label for="description" class="form-label fw-bold">Description</label>
-            <textarea name="description" id="description" rows="3" class="form-control" placeholder="What's on your mind">{{ old('description', $post->description) }}</textarea>
+            <textarea name="description" id="description" rows="3" class="form-control sns-input" placeholder="What's on your mind">{{ old('description', $post->description) }}</textarea>
             {{-- Error --}}
             @error('description')
                 <div class="text-danger small">{{ $message }}</div>
@@ -54,6 +55,7 @@
                 @enderror
             </div>
         </div>
-        <button type="submit" class="btn btn-warning px-5">Save</button>
+        <button type="submit" class="btn btn-mini px-5">Save</button>
     </form>
+</div>
 @endsection

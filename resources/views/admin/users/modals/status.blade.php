@@ -2,9 +2,9 @@
 {{-- Activate --}}
     <div class="modal fade" id="activate-user-{{ $user->id }}">
     <div class="modal-dialog">
-        <div class="modal-content border-success">
-            <div class="modal-header border-success">
-                <h3 class="h5 modal-title text-success">
+        <div class="modal-content activate">
+            <div class="modal-header activate">
+                <h3 class="h5 modal-title activate">
                     <i class="fa-solid fa-user-slash"></i> Avtivate User
                 </h3>
             </div>
@@ -15,8 +15,8 @@
                 <form action="{{ route('admin.users.activate', $user->id) }}" method="post">
                     @csrf
                     @method('PATCH')
-                    <button type="button" class="btn btn-outline-success btn-sm" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success btn-sm">Avtivate</button>
+                    <button type="button" class="btn btn-outline-orange btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-orange btn-sm">Activate</button>
                 </form>
             </div>
         </div>

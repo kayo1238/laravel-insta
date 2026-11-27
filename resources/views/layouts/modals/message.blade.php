@@ -7,7 +7,7 @@
     aria-hidden="{{ $isModalOpen ? 'false' : 'true' }}" style="{{ $isModalOpen ? 'display:block;' : '' }}">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
+            <div class="modal-header chat text-white">
                 <h5 class="modal-title" id="chatModalLabel">
                     @isset($receiver)
                         {{ $receiver->name }}
@@ -42,7 +42,7 @@
                                         class="rounded-circle avatar-sm"
                                         style="width: 32px; height 32px; object-fit: cover">
                                 @else
-                                    <i class="fa-solid fa-circle-user fs-4 text-secondary"></i>
+                                    <i class="fa-solid fa-face-smile smile icon-sm"></i>
                                 @endif
 
                                 <div class="bg-secondary bg-opacity-25 text-dark border rounded px-3 py-2"
@@ -91,7 +91,7 @@
                                     <img src="{{ $followUser->avatar }}" alt="{{ $followUser->name }}"
                                         class="rounded-circle avatar-sm">
                                 @else
-                                    <i class="fa-solid fa-circle-user fs-4 text-secondary"></i>
+                                    <i class="fa-solid fa-face-smile smile icon-sm"></i>
                                 @endif
                                 <span>{{ $followUser->name }}</span>
                             </div>
@@ -112,8 +112,8 @@
                 <div class="modal-footer">
                     <form action="{{ route('messages.store', $receiver->id) }}" method="POST" class="w-100 d-flex gap-2">
                         @csrf
-                        <input type="text" name="body" class="form-control" placeholder="Message..." required>
-                        <button type="submit" class="btn btn-danger  bg-danger bg-opacity-75">Send</button>
+                        <input type="text" name="body" class="form-control sns-input" placeholder="Message..." required>
+                        <button type="submit" class="btn btn-mini">Send</button>
                     </form>
                 </div>
             @endisset

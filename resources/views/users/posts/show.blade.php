@@ -29,7 +29,7 @@
                                     <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}"
                                         class="rounded-circle avatar-sm">
                                 @else
-                                    <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
+                                    <i class="fa-solid fa-face-smile smile icon-sm"></i>
                                 @endif
                             </a>
                         </div>
@@ -64,13 +64,13 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                            class="border-0 bg-transparent p-0 text-secondary">Following</button>
+                                            class="btn btn-following">Following</button>
                                     </form>
                                 @else
                                     <form action="{{ route('follow.store', $post->user->id) }}" method="post">
                                         @csrf
                                         <button type="submit"
-                                            class="border-0 bg-transparent p-0 text-primary">Follow</button>
+                                            class="btn btn-mini">Follow</button>
                                     </form>
                                 @endif
                             @endif
@@ -86,14 +86,14 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm shadow-none p-0">
-                                        <i class="fa-solid fa-heart text-danger"></i>
+                                        <i class="fa-solid fa-heart heart"></i>
                                     </button>
                                 </form>
                             @else
                                 <form action="{{ route('like.store', $post->id) }}" method="post">
                                     @csrf
                                     <button type="submit" class="btn btn-sm shadow-none p-0">
-                                        <i class="fa-regular fa-heart"></i>
+                                        <i class="fa-regular fa-heart no-heart"></i>
                                     </button>
                                 </form>
                             @endif
@@ -101,6 +101,17 @@
                         <div class="col-auto px-0">
                             <span>{{ $post->likes->count() }}</span>
                         </div>
+
+                        <div class="col-auto">
+                            <a href="{{ route('post.show', $post->id) }}" class="text-dark fa-xl">
+                                <i class="fa-regular fa-comment"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="col-auto px-0">
+                            <span>{{ $post->comments->count() }}</span>
+                        </div>
+
                         <div class="col text-end">
                             @if ($post->categories->isNotEmpty())
                                 @foreach ($post->categories as $category)
@@ -152,9 +163,9 @@
 
 
                             <div class="input-group">
-                                <textarea name="comment_body{{ $post->id }}" cols="30" rows="1" class="form-control form-control-sm"
+                                <textarea name="comment_body{{ $post->id }}" cols="30" rows="1" class="form-control form-control-sm sns-input"
                                     placeholder="Add a comment...">{{ old('comment_body' . $post->id) }}</textarea>
-                                <button type="submit" class="btn btn-outline-secondary btn-sm" title="Post">
+                                <button type="submit" class="btn btn-sm btn-mini" title="Post">
                                     <i class="fa-regular fa-paper-plane"></i>
                                 </button>
                             </div>
@@ -169,10 +180,22 @@
                             <ul class="list-group mt-2">
                                 @foreach ($post->comments as $comment)
                                     <li class="list-group-item border-0 p-0 mb-2">
-                                        <a href="{{ route('profile.show', $comment->user->id) }}"
-                                            class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
-                                        &nbsp;
-                                        <p class="d-inline fw-light">{{ $comment->body }}</p>
+                                        <div class="d-flex align-items-start gap-2">
+                                            <a href="{{ route('profile.show', $comment->user->id) }}" class="d-inline-flex align-items-center justify-content-center text-decoration-none avatar-wrap flex-shrink-0">
+                                                @if ($comment->user->avatar)
+                                                <img src="{{ $comment->user->avatar }}" alt="{{ $comment->user->name }}" class="rounded-circle avatar-sm">
+                                                @else
+                                                    <i class="fa-solid fa-face-smile smile icon-sm"></i>    
+                                                @endif
+                                            </a>
+                                            <div class="d-flex flex-column">
+                                                <a href="{{ route('profile.show', $comment->user->id) }}"
+                                                    class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}
+                                                </a>
+                                                <p class="d-inline fw-light">{{ $comment->body }}</p>
+                                            </div>
+                                        </div>
+                                        
 
                                         <form action="{{ route('comment.destroy', $comment->id) }}" method="post">
                                             @csrf

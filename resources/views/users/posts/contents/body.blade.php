@@ -13,21 +13,33 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-sm shadow-none p-0">
-                        <i class="fa-solid fa-heart text-danger"></i>
+                        <i class="fa-solid fa-heart heart"></i>
                     </button>
                 </form>
             @else
                 <form action="{{ route('like.store', $post->id) }}" method="post">
                     @csrf
                     <button type="submit" class="btn btn-sm shadow-none p-0">
-                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-heart no-heart"></i>
                     </button>
                 </form>
             @endif
         </div>
+        
         <div class="col-auto px-0">
             <span>{{ $post->likes->count() }}</span>
         </div>
+
+        <div class="col-auto">
+            <a href="{{ route('post.show', $post->id) }}" class="text-dark fa-xl">
+                <i class="fa-regular fa-comment"></i>
+            </a>
+        </div>
+        
+        <div class="col-auto px-0">
+            <span>{{ $post->comments->count() }}</span>
+        </div>
+
         <div class="col text-end">
             @if ($post->categories->isNotEmpty())
                 @foreach ($post->categories as $category)

@@ -2,9 +2,9 @@
     {{-- Unhide --}}
     <div class="modal fade" id="unhide-post-{{ $post->id }}">
         <div class="modal-dialog">
-            <div class="modal-content border-secondary">
-                <div class="modal-header border-secondary">
-                    <h3 class="h5 modal-title text-secondary">
+            <div class="modal-content unhide">
+                <div class="modal-header unhide">
+                    <h3 class="h5 modal-title unhide">
                         <i class="fa-solid fa-user-slash"></i> Unhide Post
                     </h3>
                 </div>
@@ -18,9 +18,9 @@
                     <form action="{{ route('admin.posts.unhide', $post->id) }}" method="post">
                         @csrf
                         @method('PATCH')
-                        <button type="button" class="btn btn-outline-primary btn-sm"
+                        <button type="button" class="btn btn-outline-pink btn-sm"
                             data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Unhide</button>
+                        <button type="submit" class="btn btn-pink btn-sm">Unhide</button>
                     </form>
                 </div>
             </div>

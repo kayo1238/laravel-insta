@@ -4,7 +4,7 @@
 
 @section('content')
     <table class="table table-hover align-middle bg-white border text-secondary">
-        <thead class="small table-primary text-secondary">
+        <thead class="small table-post text-secondary">
             <tr>
                 <th>ID</th>
                 <th></th>
@@ -41,7 +41,7 @@
                             {{-- tarashed() - returns TRUE is the user was soft deleted --}}
                             <i class="fa-regular fa-circle text-secondary"></i>&nbsp; Hidden
                         @else
-                            <i class="fa-solid fa-circle text-primary"></i>&nbsp; Visible
+                            <i class="fa-solid fa-circle visible"></i>&nbsp; Visible
                         @endif
                     </td>
                     <td>
