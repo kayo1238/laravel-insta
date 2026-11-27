@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Like;
+use App\Models\Post;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
@@ -19,7 +21,17 @@ class LikeController extends Controller
         $this->like->post_id = $post_id;          // which post
         $this->like->save();                      // save to batabase
 
-        return redirect()->back();
+        # 自分の投稿以外にlikesされた場合のみ通知を作成
+        $post = Post::findOrFail($post_id);
+        if ($post->user_id !== Auth::user()->id) {
+            Notification::create([
+                'user_id'   => $post->user_id,  // 通知を受け取る人
+                'sender_id' => Auth::user()->id, // likeした人
+                'post_id'   => $post->id,
+                'type'      => 'like',
+            ]);
+            return redirect()->back();
+        }
     }
 
     # unlike a post(destroy)

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Override;
 
 class User extends Authenticatable
 {
@@ -70,5 +71,14 @@ class User extends Authenticatable
         return $this->followers()->where('follower_id', Auth::user()->id)->exists();
         // get all the follower of the user
         // check where in follower_id column AUTH USER exists
+    }
+
+    #Get Nottification & 未読の通知一覧を表示
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'user_id')->latest();
+    }
+    public function unreadNotificationsCount(){
+        return $this->notifications()->where('is_read', false)->count();
     }
 }
