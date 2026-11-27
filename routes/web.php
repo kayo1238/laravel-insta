@@ -28,8 +28,7 @@ Route::group(['middleware' => 'auth'], function(){    // Auth=login user only
 
     // message 
     Route::get('/messages/{user_id}', [MessageController::class, 'show'])->name('messages.show');
-    Route::post('/messages/{user_id}', [MessageController::class, 'store'])->name('massages.store');
-
+    Route::post('/messages/{user_id}', [MessageController::class, 'store'])->name('messages.store');
     # route for admin
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
         // USER

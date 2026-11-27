@@ -9,7 +9,7 @@ class message extends Model
 {
     // create() 　や update()で一括代入するcolumn
     protected $fillable = [
-        'send_id',
+        'sender_id',
         'receiver_id',
         'body',
         'read_at',
